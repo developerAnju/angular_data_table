@@ -1,0 +1,40 @@
+<div class="container mx-auto w-4/4 shadow-md bg-white shadow-blue-200/20 mx-36 my-10">
+    <div class="flex items-center">
+        <input type="text" class="border-2 rounded-md mr-3 w-full p-2" placeholder="Search...." 
+        #filter (keyup)="filterData(filter.value)">
+        <select class="border-2 rounded-md p-2" #pageSize (change)="changePageSize(pageSize.value)">
+            <option *ngFor="let size of pageSizes;" [value]="size">{{size}}</option>
+        </select>
+    </div>
+    <table class="w-full border-4 mt-3">
+        <thead>
+            <tr>
+                <th class="p-3 text-left bg-gray-200">#</th>
+                <th class="p-3 text-left bg-gray-200">Supplier</th>
+                <th class="p-3 text-left bg-gray-200">Address</th>
+                <th class="p-3 text-left bg-gray-200">E Mail</th>
+                <th class="p-3 text-left bg-gray-200">Phone</th>
+                <th class="p-3 text-left bg-gray-200">Action</th>
+            </tr>
+            <tr *ngFor = "let supplier of visibleData();let i = index" >
+                <td class="p-3 border-2">{{i+1}}</td>
+                <td class="p-3 border-2">{{ supplier.name }}</td>
+                <td class="p-3 border-2">{{ supplier.address }}</td>
+                <td class="p-3 border-2">{{ supplier.address }}</td>
+                <td class="p-3 border-2">{{ supplier.phone }}</td>
+                <td class="p-3 border-2"></td>
+            </tr>
+        </thead>
+    </table>
+    <div class="flex items-center justify-center my-3">
+        <button (click)="previousPage()"
+        class="text-cyan-500 border-4 py-2 px-4 rounded-l-lg cursor-pointer mr-5">Previous</button>
+        <button *ngFor = "let pageNumber of pageNumbers();let i = index"
+        class="py-2 px-4 cursor-pointer bg-cyan-500 text-white" 
+        [class.bg-cyan-500] = "i+1 == currentPage"
+        [class.text-white]="i+1 == currentPage"
+        (click)="changePage(i+1)">{{ i + 1 }}</button>
+        <button (click)="nextPage()"
+        class="text-cyan-500 border-4 py-2 px-4 cursor-pointer rounded-r-lg ml-5">Next</button>
+    </div>
+</div>
